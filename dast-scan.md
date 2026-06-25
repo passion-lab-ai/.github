@@ -16,13 +16,31 @@ Add the following job to the end of your deployment workflow. The target must be
 
 ```yaml
 dast:
+    name: DAST (OWASP ZAP)
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.14.0
+        with:
+          target: https://passion-os.passionlabs.ai/login
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+Scan results are reported as GitHub Issues and surfaced in the Security tab. Critical and high findings must be remediated before promotion to production.
+
+## Callable Workflow [Not yet implemented]
+
+```yaml
+dast:
   needs: deploy
   uses: passion-lab-ai/.github/.github/workflows/dast-scan.yml@main
   with:
     target_url: https://staging.your-project.com
 ```
 
-Scan results are reported as GitHub Issues and surfaced in the Security tab. Critical and high findings must be remediated before promotion to production.
+
 
 ## SAST and SCA
 
