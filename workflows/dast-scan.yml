@@ -1,0 +1,21 @@
+on:
+  workflow_call:
+    inputs:
+      target_url:
+        required: true
+        type: string
+      runs_on:
+        required: false
+        type: string
+        default: ubuntu-latest
+
+jobs:
+  dast:
+    runs-on: ${{ inputs.runs_on }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.14.0
+        with:
+          target: ${{ inputs.target_url }}
+          token: ${{ secrets.GITHUB_TOKEN }}
