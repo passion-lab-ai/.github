@@ -24,7 +24,7 @@ dast:
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.14.0
         with:
-          target: https://passion-os.passionlabs.ai/login
+          target: https://your-project.com
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -37,7 +37,7 @@ dast:
   needs: deploy
   uses: passion-lab-ai/.github/.github/workflows/dast-scan.yml@main
   with:
-    target_url: https://staging.your-project.com
+    target_url: https://your-project.com
 ```
 
 
