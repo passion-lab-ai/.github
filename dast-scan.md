@@ -19,12 +19,16 @@ dast:
     name: DAST (OWASP ZAP)
     needs: deploy
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@v4
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.14.0
         with:
-          target: https://your-project.com
+          target: https://your-project.com/
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -35,9 +39,9 @@ Scan results are reported as GitHub Issues and surfaced in the Security tab. Cri
 ```yaml
 dast:
   needs: deploy
-  uses: passion-lab-ai/.github/.github/workflows/dast-scan.yml@main
+  uses: passion-lab-ai/.github/workflows/dast-scan.yml@main
   with:
-    target_url: https://your-project.com
+    target_url: https://your-project.com/
 ```
 
 
